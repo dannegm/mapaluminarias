@@ -1,0 +1,62 @@
+/* Actualizacion fixed de la AppMotnelibano - Mapa */
+
+Se repararon los siguientes aspectos
+
+- Draagable activado/desactivado
+*** Faltaba actibar el dragable con gmaps
+- Actualizacion en la bd de las coordenadas
+*** En el index, pasaba una variable 'long' en lugar de 'lng'
+*** En 'php/updatelumi.php' repetia variable 'lng' y fataba declarar variable 'lat'
+*** En el objeto 'lumi', miembro 'upPos', se le cambio la identificacion de 'serial' a 'id', dado que 'serial' se repite a lo largo de la tabla
+- Filtrado 'nueva' solucionado
+*** No se habia creado filtro
+*** No se habia creado comportamiento del checkbos
+- Filtrado 'reparada' solucionad
+*** No se habia creado filtro
+*** No se habia creado comportamiento del checkbos
+- Filtrado 'intervenidas' eliminado
+*** No supe con que relacionarlo
+*** En caso de necesitar este filtro, basarse en los ejemplos de 'nuevo' o 'barrio'
+- Filtrado 'mes, anio, serial, potencia, barrio' encontrado problema
+*** Se deben escribir los datos como exactamente como en la tabla, esto es a falta de campos selects
+- Informacion extra, implementado
+*** Se puede tener accesso con json en 'json/infoLum.php?id={id_de_lum}'
+- Conteo del resultado del filtro solucionado
+*** Se cambio sentencia 'if' por 'switch'
+- Porcentaje ya no es siempre 100%
+*** Siempre se baso al valor neto encontrado, solucionado junto con el punto anterior
+- Posicionamiento del mapa en modo fullscreen mejorado
+*** Se cambio 'asolute' por 'fixed'
+
+Bugs por reparar
+
+- Al desactivar los filtros 'reparadas' y 'nuevas', la lista no se renueva, sin embargo el filtro ya no es aplicable, el problema es solo cuestion grafico
+- Inexistencia de campos selects
+
+Observaciones
+
+- El filtrado trabaja con 2 altgoritmos distintos
+a) El filtro se aplicara para mostrar las luminarias que concuerden con todos los filtros. ej
+
+   Si hay una luminaria 'nueva', con una potencia de '75' watts y esta en el barrio 'San Andres',
+   se aplicara filtro 'nueva' y aparecera, sin embargo, si se aplica filtro 'potencia a 100', este ya no aparecera
+
+b) El filtro se aplicara para mostrar las luminarias que concuerden con alguno de los filtros. ej
+
+   Tomando el ejemplo anterior, la luminaria seguira siendo visible, por cuanto el filtro 'nueva' esta activado
+
+  Para hacer el uso del altgoritmo 'A' (por defecto) en el objeto 'luminaria', miembro 'setFilter', mantener con condicional 'AND'
+  Para hacer uso del altgoritmo 'B', en el objeto 'luminaria', miembro 'setFilter', cambiar el condicional 'AND' por 'OR'
+
+- El manejo de la interfaz grafica es bastante simple, el uso de los botones es el siguiente
+*** Con clase 'blue', el boton se muestra azul
+*** Con clase 'red', el boton se muestra rojo
+*** Con clase 'inline', el boton se muestra junto con otro elemento, ya sea block o inline, esta propiedad tendra un margen derecho de 5px
+*** Dentro de un div, este se alineara a la derecha, dependiendo el width del div
+*** Con la clase 'unchecked' aparecera un tache sobre el boton
+*** Con la clase 'checked' aparecera una palomita sobre el boton
+
+
+Nota: Este dia que lo hice, ya estaba cansado >.< ... estaban mal muchas cosas, las cuales ya correji
+
+By Dannegm
